@@ -253,7 +253,12 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
 
     // Set the label
     cell.textLabel.font = [UIFont fontWithName:self.picker.pickerFontName size:self.picker.pickerFontHeaderSize];
-    cell.textLabel.text = (self.collectionsFetchResultsTitles[indexPath.section])[indexPath.row];
+     if (indexPath.section < self.collectionsFetchResultsTitles.count && [self.collectionsFetchResultsTitles[indexPath.section] isKindOfClass:[NSArray class]] && indexPath.row < ((NSArray*)self.collectionsFetchResultsTitles[indexPath.section]).count) {
+        cell.textLabel.text = (self.collectionsFetchResultsTitles[indexPath.section])[indexPath.row];
+    }
+    else {
+        cell.textLabel.text = @"";
+    }
     cell.textLabel.textColor = self.picker.pickerTextColor;
     
     // Retrieve the pre-fetched assets for this album:
